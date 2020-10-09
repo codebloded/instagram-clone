@@ -18,6 +18,8 @@ const useStyle = makeStyles({
     box:{
         border:"2px solid red",
         textAlign:"center",
+        border:"none",
+        boxShadow: "1px 1px 4px black",
         display:"flex",
         flexDirection:"column",
         alignItems:"center",

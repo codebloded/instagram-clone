@@ -43,6 +43,7 @@ function Navbar (){
                 </Typoraphy>
                 <Link to="/signup" style={{textDecoration:"none"}}><Button variant="outlined"  className={classes.button}color="inherit">Sign up</Button></Link>
                 <Link to="/login" style={{textDecoration:"none"}}><Button variant="outlined" className={classes.button} color="inherit">Login</Button></Link>
+                <Link to="/profile" style={{textDecoration:"none"}}><Button variant="outlined" className={classes.button} color="inherit">Profile</Button></Link>
             </ToolBar>
 
         </AppBar>
