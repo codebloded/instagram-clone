@@ -1,11 +1,21 @@
 import React from 'react';
 import './App.css';
+import {BrowserRouter, Link, Route} from 'react-router-dom'
+import Navbar from "../src/components/_layouts/Navbar"
+import Login from "../src/components/_pages/Login";
+import SignUp from "../src/components/_pages/SignUp";
+import Home from "../src/components/_pages/Home";
 
 function App() {
   return (
-    <div className="App">
-      <h1>Instagram clone</h1>
-    </div>
+      <React.Fragment>
+          <BrowserRouter>
+              <Navbar/>
+              <Route exact path="/" component={Home}/>
+              <Route exact path="/login" component={Login}/>
+              <Route exact path="/signup" component={SignUp}/>
+          </BrowserRouter>
+      </React.Fragment>
   );
 }
 
