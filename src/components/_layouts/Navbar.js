@@ -7,6 +7,7 @@ import {makeStyles, createMuiTheme} from "@material-ui/core/styles"
 import Typoraphy from "@material-ui/core/Typography"
 import { Link } from 'react-router-dom';
 
+
 const theme = createMuiTheme({
     palette:{
         primary:{
@@ -44,6 +45,7 @@ function Navbar (){
                 <Link to="/signup" style={{textDecoration:"none"}}><Button variant="outlined"  className={classes.button}color="inherit">Sign up</Button></Link>
                 <Link to="/login" style={{textDecoration:"none"}}><Button variant="outlined" className={classes.button} color="inherit">Login</Button></Link>
                 <Link to="/profile" style={{textDecoration:"none"}}><Button variant="outlined" className={classes.button} color="inherit">Profile</Button></Link>
+                <Link to="/create" style={{textDecoration:"none"}}><Button variant="outlined" className={classes.button} color="inherit">Create Post</Button></Link>
             </ToolBar>
 
         </AppBar>
