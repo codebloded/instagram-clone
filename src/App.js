@@ -14,10 +14,10 @@ function App() {
           <BrowserRouter>
               <Navbar/>
               <Route exact path="/" component={Home}/>
-              <Route exact path="/login" component={Login}/>
-              <Route exact path="/signup" component={SignUp}/>
-              <Route exact path="/profile" component={Profile}/>
-              <Route exact path="/create" component={CreatePost}/>
+              <Route  path="/login" component={Login}/>
+              <Route  path="/signup" component={SignUp}/>
+              <Route path="/profile" component={Profile}/>
+              <Route  path="/create" component={CreatePost}/>
           </BrowserRouter>
       </React.Fragment>
   );

@@ -4,7 +4,7 @@ import React from 'react';
 export default function CreatePost(){
     const Styles ={
 
-        margin:"12px auto",
+        margin:"30px auto",
         maxWidth:"500px",
         padding:"20px",
         textAlign:"center"
@@ -20,7 +20,7 @@ export default function CreatePost(){
             <input type="text" placeholder="Desaription" />   
             <div className="file-field input-field">
             <div className="btn waves-effect waves-light #64b5f6 blue darken-1">
-                <span>Image</span>
+                <span>Upload Image</span>
                 <input type="file"/>
             </div>
             <div className="file-path-wrapper">

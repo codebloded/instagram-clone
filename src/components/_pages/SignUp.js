@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 //@material ui components
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid';
@@ -33,17 +33,80 @@ const useStyle = makeStyles({
     }
 })
 export default function SignUp(){
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const postCredentials = ()=>{
+        fetch("/signup",{
+                method:"post",
+                headers:{
+                "Content-Type":"application/json"
+             },
+                body:JSON.stringify({
+                    name:"",
+                    email:"",
+                    password:""
+                })
+            }).then(res => res.json())
+            .then(data=>{
+                console.log(data); 
+        }).catch(err=>{
+            console.log(err);
+        })
+          
+    }
+
     const classes = useStyle();
     return(
         <Container className={classes.box} >
         <h1 className="font">Instagram</h1>
         <form>
         <Container maxWidth="xs" className={classes.root}>
-            <TextField id="outlined-basic" label="Mobile No." variant="outlined" style={{width:"22vw", margin:"6px"}}/>
-            <TextField id="outlined-basic" label="Full Name" variant="outlined" style={{width:"22vw", margin:"6px"}}/>
-            <TextField id="outlined-basic" label="Username" variant="outlined" style={{width:"22vw", margin:"6px"}}/>
-            <TextField id="outlined-basic" label="Password" variant="outlined" style={{width:"22vw",margin:"6px"}} />
-            <Button variant="contained" color="primary" style={{width:"22vw",margin:"6px"}}>Sign Up</Button>
+            {/* <TextField 
+                id="outlined-basic"
+                label="Mobile No." 
+                variant="outlined"
+                style={{width:"22vw",
+                margin:"6px"}}
+                value={name}
+                onChange={(event)=>setName(event.target.value)}
+            
+               /> */}
+
+            <TextField
+                id="outlined-basic"
+                label="Full Name" 
+                variant="outlined" 
+                value={name}
+                onChange={(event)=>setName(event.target.value)}
+                style={{width:"22vw", 
+                margin:"6px"}}/>
+
+            <TextField 
+                id="outlined-basic"
+                label="Email" 
+                variant="outlined"
+                value={email}
+                onChange={(event)=>setEmail(event.target.value)}
+                style={{width:"22vw",
+                margin:"6px"}}/>
+
+            <TextField id="outlined-basic" 
+                label="Password" 
+                type="password"
+                value={password}
+                onChange={(event)=>setPassword(event.target.value)}
+                variant="outlined"
+                style={{width:"22vw",margin:"6px"}} />
+
+            <Button variant="contained"
+                color="primary" 
+                style={{width:"22vw",margin:"6px"}}
+                onClick={()=>postCredentials()}
+                >Sign Up</Button>
+                
+
         </Container>
         </form>
         <Container>
