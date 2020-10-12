@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {useContext } from 'react';
 import AppBar from "@material-ui/core/AppBar";
 import ToolBar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button'
@@ -7,6 +7,7 @@ import {makeStyles, createMuiTheme} from "@material-ui/core/styles"
 import Typoraphy from "@material-ui/core/Typography"
 import { Link } from 'react-router-dom';
 
+import {UserContext} from "../../App";
 
 const theme = createMuiTheme({
     palette:{
@@ -34,18 +35,32 @@ const useStyle = makeStyles({
 })
 
 function Navbar (){
+    const {state,dispatch} = useContext(UserContext);
+    const renderLink = ()=>{
+        if(state){
+            return[
+                <Link to="/profile" style={{textDecoration:"none"}}><Button variant="outlined" className={classes.button} color="inherit">Profile</Button></Link>,
+
+                <Link to="/createpost" style={{textDecoration:"none"}}><Button variant="outlined" className={classes.button} color="inherit">Create Post</Button></Link>
+            ]
+        }
+        else{
+            return [
+                <Link to="/signup" style={{textDecoration:"none"}}><Button variant="outlined"  className={classes.button}color="inherit">Sign up</Button></Link>,
+
+                <Link to="/login" style={{textDecoration:"none"}}><Button variant="outlined" className={classes.button} color="inherit">Login</Button></Link>
+            ]
+        }
+    }
     const classes = useStyle();
     return(
         <React.Fragment>
         <AppBar position="static" className={classes.root} >
             <ToolBar>
                 <Typoraphy variant="h5" component="h1" className={classes.title} >
-                    <Link to="/" style={{textDecoration:"none"}} className="font">Instagram</Link>
+                    <Link to={state?"/":"/login"} style={{textDecoration:"none"}} className="font">Instagram</Link>
                 </Typoraphy>
-                <Link to="/signup" style={{textDecoration:"none"}}><Button variant="outlined"  className={classes.button}color="inherit">Sign up</Button></Link>
-                <Link to="/login" style={{textDecoration:"none"}}><Button variant="outlined" className={classes.button} color="inherit">Login</Button></Link>
-                <Link to="/profile" style={{textDecoration:"none"}}><Button variant="outlined" className={classes.button} color="inherit">Profile</Button></Link>
-                <Link to="/createpost" style={{textDecoration:"none"}}><Button variant="outlined" className={classes.button} color="inherit">Create Post</Button></Link>
+                    {renderLink()}
             </ToolBar>
 
         </AppBar>

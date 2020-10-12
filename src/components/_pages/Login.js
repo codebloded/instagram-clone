@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useContext, useReducer} from 'react';
 //@material ui components
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid';
@@ -7,6 +7,7 @@ import Container from "@material-ui/core/Container";
 import { Link, makeStyles, Typography } from '@material-ui/core';
 import { InputSharp } from '@material-ui/icons';
 import { useHistory } from 'react-router-dom';
+import {UserContext} from '../../App';
 import M from "materialize-css";
 const useStyle = makeStyles({
     root:{
@@ -34,6 +35,7 @@ const useStyle = makeStyles({
     }
 })
 export default function Login(){
+    const {state, dispatch} = useContext(UserContext);
     const [email, setEmail] = useState("");
     const [password , setPassowrd] = useState("");
     const classes = useStyle();
@@ -56,7 +58,7 @@ export default function Login(){
             else{
                 localStorage.setItem("JWT", data.token)
                 localStorage.setItem("user", JSON.stringify(data.user))
-                console.log(data)
+                dispatch({type:"USER", payload:data});
                 M.toast({html: "Login Sucessfully" ,classes:"#2e7d32 green darken-3"})
                 history.push('/');
             }
