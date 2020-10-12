@@ -54,6 +54,8 @@ export default function Login(){
                M.toast({html: data.error , classes:"#c62828 red darken-3"});
             }
             else{
+                localStorage.setItem("JWT", data.token)
+                localStorage.setItem("user", JSON.stringify(data.user))
                 console.log(data)
                 M.toast({html: "Login Sucessfully" ,classes:"#2e7d32 green darken-3"})
                 history.push('/');
