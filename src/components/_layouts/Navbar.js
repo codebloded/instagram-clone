@@ -5,7 +5,8 @@ import Button from '@material-ui/core/Button'
 import {red} from '@material-ui/core/colors'
 import {makeStyles, createMuiTheme} from "@material-ui/core/styles"
 import Typoraphy from "@material-ui/core/Typography"
-import { Link } from 'react-router-dom';
+import { Link ,useHistory} from 'react-router-dom';
+import M from "materialize-css";
 
 import {UserContext} from "../../App";
 
@@ -35,13 +36,32 @@ const useStyle = makeStyles({
 })
 
 function Navbar (){
+    const history = useHistory();
     const {state,dispatch} = useContext(UserContext);
     const renderLink = ()=>{
         if(state){
             return[
                 <Link to="/profile" style={{textDecoration:"none"}}><Button variant="outlined" className={classes.button} color="inherit">Profile</Button></Link>,
 
-                <Link to="/createpost" style={{textDecoration:"none"}}><Button variant="outlined" className={classes.button} color="inherit">Create Post</Button></Link>
+                <Link to="/createpost" style={{textDecoration:"none"}}><Button variant="outlined" className={classes.button} color="inherit">Create Post</Button></Link>,
+
+            
+                <Button variant="contained"
+                    color="primary" 
+                    style={{margin:"6px"}}
+                    onClick={
+                        ()=>{
+                            localStorage.clear();
+                            dispatch({type:"CLEAR"})
+                            M.toast({html: "Logged Out !" , classes:"#c62828 red darken-3"});
+                            history.push('/login')
+                            }
+
+                    }
+                >Logout</Button>
+           
+
+                 
             ]
         }
         else{
