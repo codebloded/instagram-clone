@@ -5,6 +5,7 @@ import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import { IconButton } from '@material-ui/core';
 import {UserContext} from "../../App";
+import DeleteIcon from '@material-ui/icons/Delete';
 
 export default function Card() {
     const {state,dispatch} = useContext(UserContext);
@@ -98,13 +99,34 @@ export default function Card() {
         })
     }
 
+    const deletPost = (postid)=>{
+        fetch(`/deletepost/${postid}`,{
+            method:"delete",
+            headers:{
+                "Authorization":"Bearer "+localStorage.getItem("JWT")
+            }
+        }).then(res=>res.json())
+        .then(result=>{
+            console.log(result);
+            const newData = data.filter(item=>{
+                return item._id !== result._id
+            })
+            setData(newData);
+        })
+    }
+
     return (
         <div className="home" >
         {
             data.map((item=>{
                 return(
                     <div className="card home-card" key={item._id}>
-                <h5>{item.postedBy.name}</h5>
+                <h5>{item.postedBy.name} 
+                {item.postedBy._id ==state._id
+                && 
+                <IconButton color="inherit" style={{float:"right"}} onClick={()=>deletPost(item._id)}><DeleteIcon /></IconButton>
+                }
+                </h5>
                 <div className="card-image">
                     <img src={item.photo} />
                 </div>
@@ -126,7 +148,7 @@ export default function Card() {
                     {
                         item.comments.map(comment=>{
                             return(
-                                <h6 key={comment._id}> <span style={{fontWeight:"bold"}}> {comment.postedBy.name}</span>{comment.text}</h6>
+                                <h6 key={comment._id}> <span style={{fontWeight:"bold", marginRight:"4px"}}> {comment.postedBy.name}</span>{comment.text}</h6>
                             )
                         })
                     }
