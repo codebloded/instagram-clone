@@ -7,6 +7,8 @@ import SignUp from "../src/components/_pages/SignUp";
 import Home from "../src/components/_pages/Home";
 import CreatePost from "../src/components/_pages/CreatePost";
 import Profile from "../src/components/_pages/Profile";
+import UserProfile from '../src/components/_pages/UserProfile';
+
 import { initialState, reducer } from "../src/reducers/userReducer";
 
 
@@ -15,6 +17,8 @@ export const UserContext = createContext()
 const Routing = ()=>{
     const history = useHistory();
     const {state,dispatch} = useContext(UserContext);
+    
+
     useEffect(()=>{
         const user = JSON.parse(localStorage.getItem("user"))
         console.log(user);
@@ -29,7 +33,8 @@ const Routing = ()=>{
             <Route exact path="/" component={Home}/>
               <Route  path="/login" component={Login}/>
               <Route  path="/signup" component={SignUp}/>
-              <Route path="/profile" component={Profile}/>
+              <Route exact path="/profile" component={Profile}/>
+              <Route path="/profile/:userid" component={UserProfile}/>
               <Route  path="/createpost" component={CreatePost}/>
         </Switch>
     )
