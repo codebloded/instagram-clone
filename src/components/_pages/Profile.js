@@ -35,8 +35,9 @@ const useStyle = makeStyle({
   
 })
 export default function Profile(){
-    const {state, dispatch} = useContext(UserContext);
     const [myPic, setPic] = useState([]);
+    const {state, dispatch} = useContext(UserContext);
+    console.log(state);
     useEffect(()=>{
         fetch('/mypost',{
             headers:{
@@ -46,6 +47,7 @@ export default function Profile(){
         .then(data=>{
             setPic(data.myPosts);
         })
+
     },[])
     const classes = useStyle();
     return(
@@ -58,13 +60,14 @@ export default function Profile(){
                 <img className={classes.img} src="https://thumbor.forbes.com/thumbor/fit-in/416x416/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F5f47d4de7637290765bce495%2F0x0.jpg%3Fbackground%3D000000%26cropX1%3D1398%26cropX2%3D3908%26cropY1%3D594%26cropY2%3D3102" />
             </Container>
             <Container>
-               <h3>{state?state.name:"loading"}</h3>
+            <h4>{state?state.name:"loading"}</h4>
+            <h5>{state?state.email:"loading"}</h5>
       
                <Container className={classes.smallInfo}>
 
-                   <h3>97 Post</h3>
-                   <h3>97 followers</h3>
-                   <h3>97 following</h3>
+                   <h5>{myPic.length} Posts</h5>
+                   <h5>{state?state.followers.length:"0"} followers</h5>
+                   <h5> {state?state.following.length:"0"} following</h5>
                </Container>
            
             </Container>

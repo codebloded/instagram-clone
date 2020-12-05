@@ -1,7 +1,7 @@
 import React,{useState, useEffect,useContext} from 'react';
 import makeStyle from "@material-ui/core/styles/makeStyles";
 import { Height } from '@material-ui/icons';
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Typography ,Button } from '@material-ui/core';
 import Container from "@material-ui/core/Container";
 import {UserContext} from "../../App";
 import {useParams} from 'react-router-dom'
@@ -37,6 +37,7 @@ const useStyle = makeStyle({
 })
 export default function Profile(){
     const {state, dispatch} = useContext(UserContext);
+    const [showFollowButton , setFollowButton] = useState(true);
    const [userProfile , setProfile] = useState(null)
     const {userid} = useParams();
     console.log(userid);
@@ -52,6 +53,64 @@ export default function Profile(){
             setProfile(data)
         })
     },[])
+
+    const followUser = ()=>{
+        fetch('/follow',{
+            method:'put',
+            headers:{
+                'Content-Type':'application/json',
+                'Authorization':'Bearer '+localStorage.getItem('JWT')
+            },
+            body:JSON.stringify({
+                followId:userid
+            })
+        }).then(res=>res.json())
+        .then(data=>{
+            console.log(data);
+            dispatch({type:"UPDATE", payload:{following:data.following, followers:data.followers}})
+            localStorage.setItem('user',JSON.stringify(data));
+            setProfile((prevState)=>{
+                return{
+                    ...prevState,
+                    user:{
+                        ...prevState.user,
+                        followers:[...prevState.user.followers, data._id]
+                    }
+                }
+            })
+            setFollowButton(false);
+        })
+    }
+
+
+    const unFollowUser = ()=>{
+        fetch('/unfollow',{
+            method:'put',
+            headers:{
+                'Content-Type':'application/json',
+                'Authorization':'Bearer '+localStorage.getItem('JWT')
+            },
+            body:JSON.stringify({
+                unfollowId:userid
+            })
+        }).then(res=>res.json())
+        .then(data=>{
+            console.log(data);
+            dispatch({type:"UPDATE", payload:{following:data.following, followers:data.followers}})
+            localStorage.setItem('user',JSON.stringify(data));
+            setProfile((prevState)=>{
+                const newFollower = prevState.user.followers.filter(item=>item != data._id)
+                return{
+                    ...prevState,
+                    user:{
+                        ...prevState.user,
+                        followers:newFollower
+                    }
+                }
+            })
+            setFollowButton(true);
+        })
+    }
 
     const classes = useStyle();
     return(
@@ -72,11 +131,28 @@ export default function Profile(){
       
                <Container className={classes.smallInfo}>
 
-                   <h4>{userProfile.posts.length}Posts</h4>
-                   <h4>97 followers</h4>
-                   <h4>97 following</h4>
+                   <h5>{userProfile.posts.length} Posts</h5>
+                   <h5>{userProfile.user.followers.length} Follower</h5>
+                   <h5>{userProfile.user.following.length} Following</h5>
+
                </Container>
+
+               {
+                showFollowButton ? 
+                   <Button variant="contained"
+             className="btn waves-effect #64b5f6 blue darken-1"
+             onClick={()=>followUser()}
+             >Follow</Button>
+              :
+              <Button variant="contained"
+             className="btn waves-effect #64b5f6 blue darken-1"
+             onClick={()=>unFollowUser()}
+             >Unfollow</Button>
            
+
+               }
+                   
+                  
             </Container>
         </Container>
         </Grid>

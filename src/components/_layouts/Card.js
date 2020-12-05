@@ -6,6 +6,7 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import { IconButton } from '@material-ui/core';
 import {UserContext} from "../../App";
 import DeleteIcon from '@material-ui/icons/Delete';
+import { Link } from 'react-router-dom';
 
 export default function Card() {
     const {state,dispatch} = useContext(UserContext);
@@ -121,7 +122,7 @@ export default function Card() {
             data.map((item=>{
                 return(
                     <div className="card home-card" key={item._id}>
-                <h5>{item.postedBy.name} 
+                <h5><Link to={item.postedBy._id !== state._id?"/profile/"+item.postedBy._id :"/profile"  }>{item.postedBy.name}</Link>
                 {item.postedBy._id ==state._id
                 && 
                 <IconButton color="inherit" style={{float:"right"}} onClick={()=>deletPost(item._id)}><DeleteIcon /></IconButton>
