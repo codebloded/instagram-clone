@@ -44,6 +44,7 @@ function Navbar (){
                 <Link to="/profile" style={{textDecoration:"none"}}><Button variant="outlined" className={classes.button} color="inherit">Profile</Button></Link>,
 
                 <Link to="/createpost" style={{textDecoration:"none"}}><Button variant="outlined" className={classes.button} color="inherit">Create Post</Button></Link>,
+                <Link to="/explorepost" style={{textDecoration:"none"}}><Button variant="outlined" className={classes.button} color="inherit">Explore Posts</Button></Link>,
 
             
                 <Button variant="contained"

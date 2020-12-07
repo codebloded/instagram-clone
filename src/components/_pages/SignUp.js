@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import M from "materialize-css";
 //@material ui components
 import Button from '@material-ui/core/Button'
@@ -40,8 +40,35 @@ export default function SignUp(){
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [image, setImage] = useState("");
+    const [url, setUrl] = useState(undefined);
 
-    const postCredentials = ()=>{
+    const uploadPic = ()=>{
+        const data = new FormData();
+        data.append("file", image);
+        data.append("upload_preset","instagram-clone");
+        data.append("cloud_name","icoderohan");
+
+        //Network request for uplaoding image to cloud
+        fetch(" https://api.cloudinary.com/v1_1/icoderohan/image/upload",{
+            method:"post",
+            body:data
+        }).then(res=>res.json())
+        .then(data=>{
+            setUrl(data.url)
+        }).catch(err=>{
+            console.log(err);
+        })
+
+    }
+    useEffect(()=>{
+        if(url){
+            uploadFeilds();
+        }
+    },[url])
+
+    const uploadFeilds = ()=>{
+
         if(!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)){
             M.toast({html: "Inavlid Email" , classes:"#c62828 red darken-3"});
             return
@@ -54,7 +81,8 @@ export default function SignUp(){
                 body:JSON.stringify({
                     name: name,
                     email: email,
-                    password:password
+                    password:password,
+                    pic:url
                 })
             }).then(res => res.json())
             .then(data=>{
@@ -68,6 +96,16 @@ export default function SignUp(){
         }).catch(err=>{
             console.log(err);
         })
+    }
+    const postCredentials = ()=>{
+
+        if(image){
+            uploadPic();
+        }
+        else{
+            uploadFeilds();
+        }
+        
           
     }
 
@@ -114,6 +152,19 @@ export default function SignUp(){
                 value={password}
                 variant="outlined"
                 style={{width:"22vw",margin:"6px"}} />
+
+            <div className="file-field input-field">
+            <div className="btn waves-effect waves-light #64b5f6 blue darken-1">
+                <span>Upload Image</span>
+                <input type="file" 
+             
+                    onChange={(event)=>setImage(event.target.files[0])}
+                />
+            </div>
+            <div className="file-path-wrapper">
+                <input className="file-path validate" type="text"/> 
+            </div>
+            </div>
 
             <Button variant="contained"
                 color="primary" 

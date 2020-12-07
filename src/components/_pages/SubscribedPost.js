@@ -6,14 +6,14 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import { IconButton } from '@material-ui/core';
 import {UserContext} from "../../App";
 import DeleteIcon from '@material-ui/icons/Delete';
-import Avatar from "@material-ui/core/Avatar"
 import { Link } from 'react-router-dom';
+import Avatar from '@material-ui/core/Avatar'
 
 export default function Card() {
     const {state,dispatch} = useContext(UserContext);
     const [data, setData] = useState([]);
     useEffect(()=>{
-        fetch('/allpost',{
+        fetch('/getsubpost',{
             headers:{
                 "Authorization":"Bearer "+localStorage.getItem("JWT")
             }

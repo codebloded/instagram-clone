@@ -8,6 +8,7 @@ import Home from "../src/components/_pages/Home";
 import CreatePost from "../src/components/_pages/CreatePost";
 import Profile from "../src/components/_pages/Profile";
 import UserProfile from '../src/components/_pages/UserProfile';
+import SubscribedPost from "../src/components/_pages/SubscribedPost"
 
 import { initialState, reducer } from "../src/reducers/userReducer";
 
@@ -36,6 +37,7 @@ const Routing = ()=>{
               <Route exact path="/profile" component={Profile}/>
               <Route path="/profile/:userid" component={UserProfile}/>
               <Route  path="/createpost" component={CreatePost}/>
+              <Route  path="/explorepost" component={SubscribedPost}/>
         </Switch>
     )
 }
