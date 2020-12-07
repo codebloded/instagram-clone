@@ -37,7 +37,10 @@ const useStyle = makeStyle({
 export default function Profile(){
     const [myPic, setPic] = useState([]);
     const {state, dispatch} = useContext(UserContext);
+    const [image, setImage] = useState('');
+    const [url ,setUrl] = useState(undefined);
     console.log(state);
+
     useEffect(()=>{
         fetch('/mypost',{
             headers:{
@@ -49,9 +52,54 @@ export default function Profile(){
         })
 
     },[])
-    const classes = useStyle();
-    return(
-        <Container maxWidth="md">
+    useEffect(()=>{
+        if(image){
+            const data = new FormData();
+        data.append("file", image);
+        data.append("upload_preset","instagram-clone");
+        data.append("cloud_name","icoderohan");
+        
+        //Network request for uplaoding image to cloud
+        fetch(" https://api.cloudinary.com/v1_1/icoderohan/image/upload",{
+                method:"post",
+                body:data
+            }).then(res=>res.json())
+                .then(data=>{
+                 
+                    console.log(data)
+                    // 
+                    // 
+   
+                    fetch('/updatepic',{
+                        method:"put",
+                        headers:{
+                            "Content-Type":"application/json",
+                            "Authorization":"Bearer "+ localStorage.getItem("JWT")
+                        },
+                        body:JSON.stringify({
+                            pic:data.url
+                        })
+                    }).then(res=>res.json())
+                    .then(result=>{
+                        console.log(result);
+                        localStorage.setItem('user',JSON.stringify({...state,pic:result.pic}));
+                        dispatch({type:"UPDATEPIC", payload:result.pic});
+                        window.location.reload();
+                    })
+
+            }).catch(err=>{
+                console.log(err);
+            })
+        }
+    },[image]);
+
+    const updateProfilePic = (file)=>{
+        setImage(file);
+    
+    }
+const classes = useStyle();
+return(
+    <Container maxWidth="md">
         <Grid item xs={12}>
         <Grid item xs={12} md={12}>
 
@@ -69,6 +117,18 @@ export default function Profile(){
                    <h5>{state?state.followers.length:"0"} followers</h5>
                    <h5> {state?state.following.length:"0"} following</h5>
                </Container>
+               <div className="file-field input-field">
+            <div className="btn waves-effect waves-light #64b5f6 blue darken-1">
+                <span>Upload Image</span>
+                <input type="file" 
+             
+                    onChange={(event)=>updateProfilePic(event.target.files[0])}
+                />
+            </div>
+            <div className="file-path-wrapper">
+                <input className="file-path validate" type="text"/> 
+            </div>
+            </div>
            
             </Container>
         </Container>

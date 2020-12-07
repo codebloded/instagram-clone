@@ -1,3 +1,5 @@
+import { SatelliteTwoTone } from "@material-ui/icons"
+
 export const initialState = null
 
 export const reducer = (state,action)=>{
@@ -12,6 +14,12 @@ export const reducer = (state,action)=>{
             ...state,
             followers:action.payload.followers,
             following:action.payload.following
+        }
+    }
+    if(action.type=="UPADATEPIC"){
+        return{
+            ...state,
+            pic:action.payload.pic
         }
     }
     return state
