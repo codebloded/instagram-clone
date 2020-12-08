@@ -12,6 +12,9 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import ExploreIcon from '@material-ui/icons/Explore';
 import SearchIcon from '@material-ui/icons/Search';
 import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
+import VpnKeyRoundedIcon from '@material-ui/icons/VpnKeyRounded';
+import SecurityRoundedIcon from '@material-ui/icons/SecurityRounded';
+
 import {UserContext} from "../../App";
 
 const theme = createMuiTheme({
@@ -83,9 +86,9 @@ function Navbar (){
         }
         else{
             return [
-                <Link to="/signup" style={{textDecoration:"none"}}><Button variant="outlined"  className={classes.button}color="inherit">Sign up</Button></Link>,
+                <Link to="/signup" style={{textDecoration:"none"}}><Button startIcon={<VpnKeyRoundedIcon/>} variant="contained" className={classes.button} color="primary"> Sign up</Button></Link>,
 
-                <Link to="/login" style={{textDecoration:"none"}}><Button variant="outlined" className={classes.button} color="inherit">Login</Button></Link>
+                <Link to="/login" style={{textDecoration:"none"}}><Button startIcon={<SecurityRoundedIcon/>}  variant="contained" className={classes.button} color="primary">Login</Button></Link>
             ]
         }
     }
@@ -126,7 +129,7 @@ function Navbar (){
               />
         <ul className="collection">
             {userDetails.map(item=>{
-                return  <Link to={item._id != state._id ? "/profile/"+item._id :"/profile"} onClick={()=>{
+                return  <Link to={item._id !== state._id ? "/profile/"+item._id :"/profile"} onClick={()=>{
                     M.Modal.getInstance(searchModal.current).close()
                 }}><li className="collection-item">{item.email}</li></Link>
             })}

@@ -1,14 +1,12 @@
-import React,{useState,useContext, useReducer} from 'react';
+import React,{useState,useContext} from 'react';
 //@material ui components
 import Button from '@material-ui/core/Button'
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField'
 import Container from "@material-ui/core/Container";
 import { Link, makeStyles, Typography } from '@material-ui/core';
-import { InputSharp } from '@material-ui/icons';
 import { useHistory } from 'react-router-dom';
 import {UserContext} from '../../App';
 import M from "materialize-css";
+import SecurityRoundedIcon from '@material-ui/icons/SecurityRounded';
 const useStyle = makeStyles({
     root:{
             textAlign:"center",
@@ -18,7 +16,6 @@ const useStyle = makeStyles({
             justifyContent:"center",
     },
     box:{
-        border:"2px solid red",
         textAlign:"center",
         border:"none",
         boxShadow: "1px 1px 4px black",
@@ -85,6 +82,7 @@ export default function Login(){
               style={{width:"22vw",margin:"8px"}} />
 
             <Button variant="contained"
+            startIcon={<SecurityRoundedIcon/>}
              onClick={()=>postLogin()}
              color="primary" 
              style={{width:"22vw",margin:"8px"}}
@@ -94,7 +92,7 @@ export default function Login(){
         </form>
         <Container>
             <Typography>
-                Dont have any account <Link>SignUp</Link>
+                Dont have any account <Link to="/signup">SignUp</Link>
             </Typography>
         </Container>
         </Container>

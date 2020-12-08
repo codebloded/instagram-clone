@@ -1,13 +1,11 @@
 import React,{useState,useContext, useReducer} from 'react';
 //@material ui components
 import Button from '@material-ui/core/Button'
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField'
+
 import Container from "@material-ui/core/Container";
-import { Link, makeStyles, Typography } from '@material-ui/core';
-import { InputSharp } from '@material-ui/icons';
+import {makeStyles } from '@material-ui/core';
+
 import { useHistory } from 'react-router-dom';
-import {UserContext} from '../../App';
 import M from "materialize-css";
 const useStyle = makeStyles({
     root:{

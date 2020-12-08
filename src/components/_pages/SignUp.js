@@ -8,6 +8,7 @@ import Container from "@material-ui/core/Container";
 import { Link, makeStyles, Typography } from '@material-ui/core';
 import { InputSharp } from '@material-ui/icons';
 import { useHistory } from 'react-router-dom';
+import VpnKeyRoundedIcon from '@material-ui/icons/VpnKeyRounded';
 
 
 const useStyle = makeStyles({
@@ -167,6 +168,7 @@ export default function SignUp(){
             </div>
 
             <Button variant="contained"
+            startIcon={<VpnKeyRoundedIcon/>}
                 color="primary" 
                 style={{width:"22vw",margin:"6px"}}
                 onClick={()=>postCredentials()}
@@ -176,9 +178,9 @@ export default function SignUp(){
         </Container>
         </form>
         <Container>
-            <Typography>
-                Already Have an account <Link>Login</Link>
-            </Typography>
+            
+                <Link to='/login'>Already Have an account</Link>
+          
         </Container>
         </Container>
     )  
