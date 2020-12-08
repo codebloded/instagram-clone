@@ -7,7 +7,11 @@ import {makeStyles, createMuiTheme} from "@material-ui/core/styles"
 import Typoraphy from "@material-ui/core/Typography"
 import { Link ,useHistory} from 'react-router-dom';
 import M from "materialize-css";
-
+import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
+import ExploreIcon from '@material-ui/icons/Explore';
+import SearchIcon from '@material-ui/icons/Search';
+import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
 import {UserContext} from "../../App";
 
 const theme = createMuiTheme({
@@ -48,19 +52,20 @@ function Navbar (){
     const renderLink = ()=>{
         if(state){
             return[
-                <li style={{listStyleType:'none',margin:'10px', cursor:'pointer'}}><i  
-                 data-target="modal1"  className="material-icons modal-trigger" style={{color:'black'}}>search</i></li>,
+                <li style={{listStyleType:'none',margin:'10px', cursor:'pointer'}}><SearchIcon
+                    fontSize="large" className="modal-trigger" data-target="modal1" 
+                /></li>,
 
-                <li style={{listStyleType:'none', margin:'10px', fontWeight:'normal'}}><Link to="/profile" style={{color:'black'}}  >Profile</Link></li>,
+                <li style={{listStyleType:'none', margin:'10px', fontWeight:'normal'}}><Link to="/profile" style={{color:'black'}}  ><AccountCircleRoundedIcon fontSize='large'/></Link></li>,
                 
                 <li style={{listStyleType:'none', margin:'10px',fontWeight:'normal'}}><Link to="/createpost" 
-                style ={{color:'black'}} >CreatePost</Link></li>,
+                style ={{color:'black'}} ><AddCircleIcon fontSize="large"/></Link></li>,
 
                 <li style={{listStyleType:'none',  margin:'10px',fontWeight:'normal' }}><Link to="/explorepost"
-                 style={{color:'black', listStyle:'none'}}>Explore Posts</Link></li>,
+                 style={{color:'black', listStyle:'none'}}><ExploreIcon fontSize='large'/></Link></li>,
             
                 <li style={{listStyleType:'none',margin:'10px'}}><Button variant="contained"
-                    color="primary" 
+                    color="secondary" 
                     style={{margin:"6px"}}
                     onClick={
                         ()=>{
@@ -70,7 +75,7 @@ function Navbar (){
                             history.push('/login')
                             }
                     }
-                >Logout</Button></li>
+                ><ExitToAppRoundedIcon fontSize="large"/>Logout</Button></li>
            
        
                  
@@ -106,7 +111,7 @@ function Navbar (){
         <AppBar position="static" className={classes.root} >
             <ToolBar>
                 <Typoraphy variant="h5" component="h1" className={classes.title} >
-                    <Link to={state?"/":"/login"} style={{textDecoration:"none"}} className="font">Instagram</Link>
+                    <Link to={state?"/":"/login"} style={{color:"black"}} className="font">Instagram</Link>
                 </Typoraphy>
                     {renderLink()}
             </ToolBar>

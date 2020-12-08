@@ -128,7 +128,7 @@ export default function Card() {
                     <div style={{display:'flex'}} >
 
                     <Avatar  alt="Remy Sharp" src={state.pic}  />
-                <h5 style={{margin:'6px'}}><Link to={item.postedBy._id !== state._id?"/profile/"+item.postedBy._id :"/profile"  }>{item.postedBy.name}</Link>
+                <h5 style={{margin:'6px'}}><Link style={{ color:'black'}} to={item.postedBy._id !== state._id?"/profile/"+item.postedBy._id :"/profile"  }>{item.postedBy.name}</Link>
                 </h5>
                     </div>
                 {item.postedBy._id ==state._id
