@@ -1,6 +1,15 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+### Website
+
 [LIVE DEPLOYMENT](https://instagraam-clone.herokuapp.com/) Try once :).
+
+### Screen-Shot
+![Screenshot (39)](https://user-images.githubusercontent.com/48005711/101657714-35e3d480-3a6a-11eb-8a9e-72d7b561b9bf.png)
+
+
+
+
 ## Available Scripts
 
 In the project directory, you can run:
